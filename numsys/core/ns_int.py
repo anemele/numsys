@@ -16,7 +16,7 @@ class NumeralSystem(_NS):
             decimal_number += self._dict[char] * base**bit
         return decimal_number
 
-    def _check_input(self, number, to, base):
+    def _check_base(self, to, base):
         if not isinstance(to, int):
             raise TypeError(f'expect int, got {type(to)}')
         if not isinstance(base, int):
@@ -25,6 +25,9 @@ class NumeralSystem(_NS):
             raise ValueError(f'{to} out of range [2, {self.__base}]')
         if not 2 <= base <= self.__base:
             raise ValueError(f'{base} out of range [2, {self.__base}]')
+
+    def _check_input(self, number, to, base):
+        self._check_base(to, base)
 
         if isinstance(number, int):
             number = str(number)
