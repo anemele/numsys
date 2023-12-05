@@ -1,6 +1,6 @@
 import click
 
-from .core import decimal_to_gray, gray_to_decimal, ns_int
+from .core import NS_int, decimal_to_gray, gray_to_decimal
 from .log import logger
 
 
@@ -20,13 +20,15 @@ def cli():
 @click.argument('number')
 @click.argument('to', type=int)
 @click.option('--base', type=int, default=10)
-def convert_int(number: str, to: int, base: int):
+@click.option('--char-set', required=False)
+def convert_int(number: str, to: int, base: int, char_set: str | None = None):
     logger.debug(f'{number=}')
     logger.debug(f'{to=}')
     logger.debug(f'{base=}')
+    logger.debug(f'{char_set=}')
 
     try:
-        ret = ns_int(number, to, base=base)
+        ret = NS_int(char_set).convert(number, to, base=base)
         print(f'({base}){number} --> {ret}')
     except (TypeError, ValueError) as e:
         print(e)
