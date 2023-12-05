@@ -1,10 +1,6 @@
-import os
-import sys
-
-sys.path.insert(0, os.getcwd())
 import pytest
 
-from numsys.core import NS_int as NumeralSystem
+from .ns_int import NumeralSystem
 
 
 def test_repr():

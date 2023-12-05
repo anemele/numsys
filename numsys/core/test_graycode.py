@@ -1,10 +1,6 @@
-import os
-import sys
-
-sys.path.insert(0, os.getcwd())
 import pytest
 
-from numsys.core import decimal_to_gray, gray_to_decimal
+from .graycode import decimal_to_gray, gray_to_decimal
 
 
 def test_exception():
