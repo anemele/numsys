@@ -11,7 +11,7 @@ class NumeralSystem:
             char_set = string.digits + string.ascii_lowercase
 
         self._char, self._dict = self.__init(char_set)
-        self.__base = len(self._char)
+        self._base = len(self._char)
 
     @classmethod
     def __init(cls, char_set: Iterable[str]) -> Tuple[str, Dict[str, int]]:
@@ -31,7 +31,7 @@ class NumeralSystem:
         return ''.join(_char), _dict
 
     def __repr__(self):
-        return f'{self.__class__} base={self.__base} char={self._char}'
+        return f'{self.__class__} base={self._base} char={self._char}'
 
     def _check_input(self):
         return NotImplemented

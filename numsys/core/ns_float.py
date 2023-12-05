@@ -47,4 +47,4 @@ class NumeralSystem(_NS):
         return f'{prefix}{i}{dot}{f}'
 
 
-ns_float = NumeralSystem().convert
+convert_float = NumeralSystem().convert

@@ -21,10 +21,10 @@ class NumeralSystem(_NS):
             raise TypeError(f'expect int, got {type(to)}')
         if not isinstance(base, int):
             raise TypeError(f'expect int, got {type(base)}')
-        if not 2 <= to <= self.__base:
-            raise ValueError(f'{to} out of range [2, {self.__base}]')
-        if not 2 <= base <= self.__base:
-            raise ValueError(f'{base} out of range [2, {self.__base}]')
+        if not 2 <= to <= self._base:
+            raise ValueError(f'{to} out of range [2, {self._base}]')
+        if not 2 <= base <= self._base:
+            raise ValueError(f'{base} out of range [2, {self._base}]')
 
     def _check_input(self, number, to, base):
         self._check_base(to, base)
@@ -62,4 +62,4 @@ class NumeralSystem(_NS):
         return f'{prefix}{to_number}'
 
 
-ns_int = NumeralSystem().convert
+convert_int = NumeralSystem().convert
