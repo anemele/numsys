@@ -25,8 +25,11 @@ def convert_int(number: str, to: int, base: int):
     logger.debug(f'{to=}')
     logger.debug(f'{base=}')
 
-    ret = ns_int(number, to, base=base)
-    print(f'({base}){number} --> {ret}')
+    try:
+        ret = ns_int(number, to, base=base)
+        print(f'({base}){number} --> {ret}')
+    except (TypeError, ValueError) as e:
+        print(e)
 
 
 @cli.command(name='gray')

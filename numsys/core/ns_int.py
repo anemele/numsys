@@ -17,20 +17,22 @@ class NumeralSystem(_NS):
         return decimal_number
 
     def _check_input(self, number, to, base):
-        if not isinstance(to, int) or not isinstance(base, int):
-            raise TypeError('base expect `int`')
+        if not isinstance(to, int):
+            raise TypeError(f'expect int, got {type(to)}')
+        if not isinstance(base, int):
+            raise TypeError(f'expect int, got {type(base)}')
         if not 2 <= to <= self.__base:
-            raise ValueError(f'`{to}` out of range [2, {self.__base}]')
+            raise ValueError(f'{to} out of range [2, {self.__base}]')
         if not 2 <= base <= self.__base:
-            raise ValueError(f'`{base}` out of range [2, {self.__base}]')
+            raise ValueError(f'{base} out of range [2, {self.__base}]')
 
         if isinstance(number, int):
             number = str(number)
         elif not isinstance(number, str):
-            raise TypeError(f'expect `str`, got `{type(number)}`')
+            raise TypeError(f'expect str, got {type(number)}')
 
         if not set(number).issubset(set(self._char[:base])):
-            raise ValueError(f'out of base {base}')
+            raise ValueError(f'{number} contains invalid char')
 
         return number, to, base
 
