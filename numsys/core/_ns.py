@@ -1,37 +1,26 @@
-from typing import Dict, Iterable, Tuple
+import string
+from typing import Sequence
 
-from ..log import logger
+BASE_CHAR_SET = string.digits + string.ascii_lowercase
 
 
 class NumeralSystem:
-    def __init__(self, char_set: Iterable[str] | None = None) -> None:
+    def __init__(self, char_set: Sequence[str] | None = None) -> None:
         if char_set is None:
-            import string
+            char_set = BASE_CHAR_SET
 
-            char_set = string.digits + string.ascii_lowercase
+        length = len(char_set)
+        if length < 2:
+            raise ValueError
+        elif length > len(set(char_set)):
+            raise ValueError
 
-        self._char, self._dict = self.__init(char_set)
-        self._base = len(self._char)
-
-    @classmethod
-    def __init(cls, char_set: Iterable[str]) -> Tuple[str, Dict[str, int]]:
-        _set = set()
-        _char = []
-        for c in char_set:
-            if c in _set:
-                logger.debug(f'repeated char will skip: {c}')
-                continue
-            _set.add(c)
-            _char.append(c)
-
-        if len(_char) < 2:
-            raise ValueError('not enough char given')
-
-        _dict = {c: i for i, c in enumerate(_char)}
-        return ''.join(_char), _dict
+        self._char_seq = char_set
+        self._char_dict = {c: i for i, c in enumerate(char_set)}
+        self._base = len(self._char_seq)
 
     def __repr__(self):
-        return f'{self.__class__} base={self._base} char={self._char}'
+        return f'{self.__class__} base={self._base} char={self._char_seq}'
 
     def _check_input(self):
         return NotImplemented

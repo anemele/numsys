@@ -1,6 +1,7 @@
 from functools import wraps
 from typing import Sequence
 
+from ._ns import BASE_CHAR_SET
 from ._ns import NumeralSystem as _NS
 
 
@@ -10,12 +11,12 @@ class NumeralSystem(_NS):
             n = number
             while n != 0:
                 n, i = divmod(n, base)
-                yield self._char[i]
+                yield self._char_seq[i]
 
         return ''.join(f())[::-1]
 
     def _any_to_int(self, number: str, base: int) -> int:
-        return sum(base**p * self._dict[c] for p, c in enumerate(number[::-1]))
+        return sum(base**p * self._char_dict[c] for p, c in enumerate(number[::-1]))
 
     def _check_base(self, to, base):
         if not 2 <= to <= self._base:
@@ -34,7 +35,7 @@ class NumeralSystem(_NS):
         """
         self._check_base(to, base)
 
-        if not set(number).issubset(set(self._char[:base])):
+        if not set(number).issubset(set(self._char_seq[:base])):
             raise ValueError(f'{number} contains invalid char')
 
         if to == base:
@@ -92,3 +93,9 @@ def int_to_any(num: int, base: int, chars: Sequence[str]) -> str:
             yield chars[i]
 
     return ''.join(f())[::-1]
+
+
+def convert_any_int(
+    num: str, base: int, to: int, from_set: Sequence[str], to_set: Sequence[str] | None
+) -> str:
+    return int_to_any(any_to_int(num, base, from_set), to, to_set or BASE_CHAR_SET)

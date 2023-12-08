@@ -13,10 +13,6 @@ def test_repr():
         == "<class 'numsys.core.ns_int.NumeralSystem'> base=3 char=123"
     )
     assert (
-        repr(NumeralSystem('1213'))
-        == "<class 'numsys.core.ns_int.NumeralSystem'> base=3 char=123"
-    )
-    assert (
         repr(NumeralSystem('你好啊'))
         == "<class 'numsys.core.ns_int.NumeralSystem'> base=3 char=你好啊"
     )
@@ -29,6 +25,8 @@ def test_exception():
         NumeralSystem('1')
     with pytest.raises(ValueError):
         NumeralSystem('好')
+    with pytest.raises(ValueError):
+        NumeralSystem('1213')
 
 
 def test_convert_1():
