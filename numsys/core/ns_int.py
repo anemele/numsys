@@ -96,6 +96,17 @@ def int_to_any(num: int, base: int, chars: Sequence[str]) -> str:
 
 
 def convert_any_int(
-    num: str, base: int, to: int, from_set: Sequence[str], to_set: Sequence[str] | None
+    num: str,
+    base: int,
+    to: int,
+    from_seq: Sequence[str] | None,
+    to_seq: Sequence[str] | None,
+    show: bool = True,
 ) -> str:
-    return int_to_any(any_to_int(num, base, from_set), to, to_set or BASE_CHAR_SET)
+    ret = int_to_any(
+        any_to_int(num, base, from_seq or BASE_CHAR_SET),
+        to,
+        to_seq or BASE_CHAR_SET,
+    )
+    prefix = f'({to})' if show else ''
+    return prefix + ret

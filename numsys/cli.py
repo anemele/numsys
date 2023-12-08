@@ -21,7 +21,7 @@ def cli():
 @click.argument('to', type=int)
 @click.option('--base', type=int, default=10, help='base of number')
 @click.option('--char-set', help='expected char-set, if not provided, use [0-9a-z]')
-@click.option('--from-set', help='char-set of number, if not provided, use --char-set')
+@click.option('--from-set', help='char-set of number, if not provided, use [0-9a-z]')
 def convert_int(
     number: str,
     to: int,
@@ -36,8 +36,8 @@ def convert_int(
     logger.debug(f'{from_set=}')
 
     try:
-        if from_set is None:
-            ret = NS_int(char_set).convert(number, to, base=base)
+        if from_set is None and char_set is None:
+            ret = NS_int().convert(number, to, base=base)
         else:
             ret = convert_any_int(
                 number,
