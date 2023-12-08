@@ -1,3 +1,6 @@
+from functools import wraps
+from typing import Sequence
+
 from ._ns import NumeralSystem as _NS
 
 
@@ -63,3 +66,47 @@ class NumeralSystem(_NS):
 
 
 convert_int = NumeralSystem().convert
+
+
+def _check(func):
+    @wraps(func)
+    def wrapper(num: int | str, base: int, chars: Sequence[str]):
+        len_chars = len(chars)
+        char_set = set(chars)
+        if len_chars > len(char_set):
+            raise ValueError('requires no-repeat char sequence.')
+        if base < 2 or base > len_chars:
+            raise ValueError(f'base out of range [2, {len_chars}]')
+        if isinstance(num, str) and not set(num).issubset(char_set):
+            raise ValueError(f'{num} contains invalid char')
+
+        return func(num, base, chars[:base])
+
+    return wrapper
+
+
+@_check
+def any_to_int(num: str, base: int, chars: Sequence[str]) -> int:
+    """convert any integer of any base to int, which is human friendly.
+    `chars` is a no-repeat char sequence, user guaranteed."""
+
+    char_dict = {c: i for i, c in enumerate(chars)}
+    return sum(base**p * char_dict[n] for p, n in enumerate(num[::-1]))
+
+
+@_check
+def int_to_any(num: int, base: int, chars: Sequence[str]) -> str:
+    """convert int to any base of any form.
+    `num` is an integer, user guaranteed.
+    `chars` is a no-repeat char sequence, user guaranteed."""
+
+    if num < 0:
+        return NotImplemented
+
+    def f():
+        n = num
+        while n != 0:
+            n, i = divmod(n, base)
+            yield chars[i]
+
+    return ''.join(f())[::-1]

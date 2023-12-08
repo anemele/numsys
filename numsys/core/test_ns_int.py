@@ -1,6 +1,6 @@
 import pytest
 
-from .ns_int import NumeralSystem
+from .ns_int import NumeralSystem, any_to_int, int_to_any
 
 
 def test_repr():
@@ -51,3 +51,36 @@ def test_covert_3():
     ns = NumeralSystem(string.digits + string.ascii_letters)
     assert ns.convert('abcdefg', 60, base=50) == '(60)3prsRwK'
     assert ns.convert('3prsRwK', 50, base=60) == '(50)abcdefg'
+
+
+def test_exception_any_to_int():
+    with pytest.raises(ValueError, match='repeat'):
+        any_to_int('', 2, '121')
+    with pytest.raises(ValueError, match='out of range'):
+        any_to_int('', 1, '12')
+    with pytest.raises(ValueError, match='out of range'):
+        any_to_int('', 3, '12')
+    with pytest.raises(ValueError, match='invalid char'):
+        any_to_int('3', 2, '12')
+
+
+def test_any_to_int():
+    assert any_to_int('100', 3, '012') == 9
+    assert any_to_int('100', 2, '012') == 4
+    assert any_to_int('cba', 4, 'abcdef') == 36
+
+
+def test_exception_int_to_any():
+    with pytest.raises(ValueError, match='repeat'):
+        int_to_any(0, 2, '121')
+    with pytest.raises(ValueError, match='out of range'):
+        int_to_any(0, 1, '12')
+    with pytest.raises(ValueError, match='out of range'):
+        int_to_any(0, 3, '12')
+    assert int_to_any(-1, 2, '12') == NotImplemented
+
+
+def test_int_to_any():
+    assert int_to_any(9, 3, '012') == '100'
+    assert int_to_any(4, 2, '012') == '100'
+    assert int_to_any(36, 4, 'abcdef') == 'cba'
