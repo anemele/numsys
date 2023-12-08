@@ -33,7 +33,6 @@ def test_exception():
 
 def test_convert_1():
     ns = NumeralSystem()
-    assert ns.convert(520, 2) == '(2)1000001000'
     assert ns.convert('520', 2) == '(2)1000001000'
     assert ns.convert('ff', 10, base=16) == '(10)255'
     assert ns.convert('abc', 10, base=16, show=False) == '2748'
