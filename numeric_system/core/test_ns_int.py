@@ -6,16 +6,10 @@ from .ns_int import NumeralSystem, any_to_int, int_to_any
 def test_repr():
     assert (
         repr(NumeralSystem())
-        == "<class 'numsys.core.ns_int.NumeralSystem'> base=36 char=0123456789abcdefghijklmnopqrstuvwxyz"
+        == "<class 'NumeralSystem'> base=36 char=0123456789abcdefghijklmnopqrstuvwxyz"
     )
-    assert (
-        repr(NumeralSystem('123'))
-        == "<class 'numsys.core.ns_int.NumeralSystem'> base=3 char=123"
-    )
-    assert (
-        repr(NumeralSystem('你好啊'))
-        == "<class 'numsys.core.ns_int.NumeralSystem'> base=3 char=你好啊"
-    )
+    assert repr(NumeralSystem('123')) == "<class 'NumeralSystem'> base=3 char=123"
+    assert repr(NumeralSystem('你好啊')) == "<class 'NumeralSystem'> base=3 char=你好啊"
 
 
 def test_exception():

@@ -20,7 +20,7 @@ class NumeralSystem:
         self._base = len(self._char_seq)
 
     def __repr__(self):
-        return f'{self.__class__} base={self._base} char={self._char_seq}'
+        return f"<class '{self.__class__.__name__}'> base={self._base} char={self._char_seq}"
 
     def _check_input(self):
         return NotImplemented
