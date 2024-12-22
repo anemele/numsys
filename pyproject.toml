@@ -1,18 +1,21 @@
-[tool.poetry]
-name = "numeric-system"
+[project]
+name = "numsys"
 version = "0.1.0"
-description = ""
-authors = ["Jason Swift <anemele@outlook.com>"]
+description = "Add your description here"
 readme = "README.md"
+authors = [{ name = "Jason Swift", email = "anemele@outlook.com" }]
+requires-python = ">=3.11"
+dependencies = ["click>=8.1.8"]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-click = "^8.1.7"
-
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4.3"
+[project.scripts]
+ns = "numsys.cli:cli"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["pytest>=8.3.4"]
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"

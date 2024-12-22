@@ -1,3 +1,3 @@
 from .cli import cli
 
-cli(prog_name='ns')
+cli(prog_name="ns")

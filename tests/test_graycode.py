@@ -1,15 +1,15 @@
 import pytest
 
-from .graycode import decimal_to_gray, gray_to_decimal
+from numsys.graycode import decimal_to_gray, gray_to_decimal
 
 
 def test_exception():
     with pytest.raises(TypeError):
-        gray_to_decimal('1')  # type: ignore
+        gray_to_decimal("1")  # type: ignore
     with pytest.raises(ValueError):
         gray_to_decimal(-1)
     with pytest.raises(TypeError):
-        decimal_to_gray('1')  # type: ignore
+        decimal_to_gray("1")  # type: ignore
     with pytest.raises(ValueError):
         decimal_to_gray(-1)
 

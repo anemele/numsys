@@ -18,9 +18,9 @@ def unsigned_int(func):
     @wraps(func)
     def wrapper(num):
         if not isinstance(num, int):
-            raise TypeError(f'expect int, got {type(num)}')
+            raise TypeError(f"expect int, got {type(num)}")
         if num < 0:
-            raise ValueError(f'expect positive number')
+            raise ValueError("expect positive number")
         return func(num)
 
     return wrapper

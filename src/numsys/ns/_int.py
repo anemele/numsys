@@ -13,18 +13,20 @@ class NumeralSystem(_NS):
                 n, i = divmod(n, base)
                 yield self._char_seq[i]
 
-        return ''.join(f())[::-1]
+        return "".join(f())[::-1]
 
     def _any_to_int(self, number: str, base: int) -> int:
         return sum(base**p * self._char_dict[c] for p, c in enumerate(number[::-1]))
 
     def _check_base(self, to, base):
         if not 2 <= to <= self._base:
-            raise ValueError(f'{to} out of range [2, {self._base}]')
+            raise ValueError(f"{to} out of range [2, {self._base}]")
         if not 2 <= base <= self._base:
-            raise ValueError(f'{base} out of range [2, {self._base}]')
+            raise ValueError(f"{base} out of range [2, {self._base}]")
 
-    def convert(self, number: str, to: int, *, base: int = 10, show: bool = True) -> str:
+    def convert(
+        self, number: str, to: int, *, base: int = 10, show: bool = True
+    ) -> str:
         """
         convert
         :param number: what to convert
@@ -36,16 +38,16 @@ class NumeralSystem(_NS):
         self._check_base(to, base)
 
         if not set(number).issubset(set(self._char_seq[:base])):
-            raise ValueError(f'{number} contains invalid char')
+            raise ValueError(f"{number} contains invalid char")
 
         if to == base:
             to_number = number
         else:
             tmp = self._any_to_int(number, base)
             to_number = self._int_to_any(tmp, to)
-        prefix = f'({to})' if show else ''
+        prefix = f"({to})" if show else ""
 
-        return f'{prefix}{to_number}'
+        return f"{prefix}{to_number}"
 
 
 convert_int = NumeralSystem().convert
@@ -57,11 +59,11 @@ def _check(func):
         len_chars = len(chars)
         char_set = set(chars)
         if len_chars > len(char_set):
-            raise ValueError('requires no-repeat char sequence.')
+            raise ValueError("requires no-repeat char sequence.")
         if base < 2 or base > len_chars:
-            raise ValueError(f'base out of range [2, {len_chars}]')
+            raise ValueError(f"base out of range [2, {len_chars}]")
         if isinstance(num, str) and not set(num).issubset(char_set):
-            raise ValueError(f'{num} contains invalid char')
+            raise ValueError(f"{num} contains invalid char")
 
         return func(num, base, chars[:base])
 
@@ -92,7 +94,7 @@ def int_to_any(num: int, base: int, chars: Sequence[str]) -> str:
             n, i = divmod(n, base)
             yield chars[i]
 
-    return ''.join(f())[::-1]
+    return "".join(f())[::-1]
 
 
 def convert_any_int(
@@ -108,5 +110,5 @@ def convert_any_int(
         to,
         to_seq or BASE_CHAR_SET,
     )
-    prefix = f'({to})' if show else ''
+    prefix = f"({to})" if show else ""
     return prefix + ret

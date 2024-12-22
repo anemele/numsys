@@ -1,6 +1,6 @@
 from .decorator import unsigned_int
 
-__all__ = ['decimal_to_gray', 'gray_to_decimal']
+__all__ = ["decimal_to_gray", "gray_to_decimal"]
 
 
 @unsigned_int

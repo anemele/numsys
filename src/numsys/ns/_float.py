@@ -1,6 +1,6 @@
 import math
 
-from .ns_int import NumeralSystem as _NS
+from ._int import NumeralSystem as _NS
 
 
 class NumeralSystem(_NS):
@@ -9,15 +9,15 @@ class NumeralSystem(_NS):
 
     def _covert_frac(self, number: float, to: int, base: int, accuracy: int) -> str:
         # TODO convert fractional part
-        return ''
+        return ""
 
     def _check_input(self, number, to, base, accuracy):
         super()._check_base(to, base)
 
         if not isinstance(accuracy, int):
-            raise TypeError(f'expect int, go {type(accuracy)}')
+            raise TypeError(f"expect int, got {type(accuracy)}")
         if accuracy < 0:
-            raise ValueError(f'requires none-negative number')
+            raise ValueError("requires non-negative number")
 
         # TODO check number
         number = float(number)
@@ -38,13 +38,13 @@ class NumeralSystem(_NS):
         f, i = math.modf(number)
         i = super().convert(round(i), to, base=base, show=False)
         if f == 0.0:
-            dot = ''
+            dot = ""
         else:
-            dot = '.'
+            dot = "."
             f = self._covert_frac(f, to, base, accuracy)
-        prefix = f'({to})' if show else ''
+        prefix = f"({to})" if show else ""
 
-        return f'{prefix}{i}{dot}{f}'
+        return f"{prefix}{i}{dot}{f}"
 
 
 convert_float = NumeralSystem().convert
