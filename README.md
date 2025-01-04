@@ -1,1 +1,1 @@
-# Numerical System
+# Numeral System
