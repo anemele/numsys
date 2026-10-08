@@ -1,0 +1,13 @@
+[package]
+name = "numsys"
+version = "0.1.1"
+edition = "2024"
+
+[dependencies]
+argh = "0.1.19"
+thiserror = "2.0.20"
+num-bigint = "0.5.1"
+num-traits = "0.2.19"
+
+[profile.release]
+strip = true
